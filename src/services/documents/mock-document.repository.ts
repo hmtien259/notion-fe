@@ -21,6 +21,7 @@ function toSummary(document: Document): DocumentSummary {
     parentId: document.parentId,
     title: document.title,
     icon: document.icon,
+    coverStyle: document.coverStyle,
     isArchived: document.isArchived,
     updatedAt: document.updatedAt,
   };

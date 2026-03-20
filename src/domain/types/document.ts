@@ -18,6 +18,7 @@ export interface DocumentSummary {
   parentId: DocumentId | null;
   title: string;
   icon: string;
+  coverStyle?: string;
   isArchived: boolean;
   updatedAt: string;
 }

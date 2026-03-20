@@ -1,8 +1,14 @@
-import Link from "next/link";
+"use client";
+
 import { ArrowRight, FileText } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
+import { useCreateDocumentMutation } from "@/features/documents/hooks/use-documents";
+import { useCommandPaletteStore } from "@/shared/components/navigation/command-palette-store";
 
 export function HomeEmptyState() {
+  const createDocumentMutation = useCreateDocumentMutation();
+  const openCommandPalette = useCommandPaletteStore((state) => state.open);
+
   return (
     <section className="surface-card relative overflow-hidden rounded-[32px] border border-[var(--border)] px-8 py-12 sm:px-10 lg:px-14 lg:py-16">
       <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-r from-amber-100/50 via-transparent to-transparent dark:from-amber-500/10" />
@@ -15,16 +21,24 @@ export function HomeEmptyState() {
           A calm, scalable shell for a Notion-like editor.
         </h1>
         <p className="mt-6 max-w-2xl text-base leading-8 text-[var(--muted-foreground)]">
-          This phase focuses on structure, routing, theming, and reusable layout pieces so future editor work can grow cleanly.
+          The frontend now talks to the backend document APIs through repository adapters, while preserving the same product shell and editing flow.
         </p>
         <div className="mt-10 flex flex-wrap items-center gap-3">
-          <Link href="/documents/welcome" className={buttonVariants()}>
-            Open sample document
+          <button
+            type="button"
+            className={buttonVariants()}
+            onClick={() => createDocumentMutation.mutate({ parentId: null })}
+          >
+            Create first document
             <ArrowRight className="ml-2 h-4 w-4" />
-          </Link>
-          <Link href="/documents/product-spec" className={buttonVariants({ variant: "outline" })}>
-            View document route
-          </Link>
+          </button>
+          <button
+            type="button"
+            className={buttonVariants({ variant: "outline" })}
+            onClick={openCommandPalette}
+          >
+            Search documents
+          </button>
         </div>
       </div>
     </section>
