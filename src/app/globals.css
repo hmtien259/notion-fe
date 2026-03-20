@@ -2,40 +2,44 @@
 
 :root {
   color-scheme: light;
-  --background: #f7f5f2;
-  --foreground: #191711;
-  --card: rgba(255, 255, 255, 0.78);
+  --background: #f5f0e8;
+  --foreground: #1f1a14;
+  --card: rgba(255, 252, 247, 0.82);
   --card-foreground: #191711;
-  --muted: #efebe3;
-  --muted-foreground: #70675d;
-  --border: rgba(32, 26, 18, 0.1);
-  --accent: #b7791f;
+  --muted: #eee5d7;
+  --muted-foreground: #786f62;
+  --border: rgba(53, 42, 28, 0.12);
+  --accent: #bc7a30;
   --accent-foreground: #fffaf2;
-  --sidebar: rgba(245, 240, 231, 0.88);
+  --sidebar: rgba(244, 236, 223, 0.92);
   --sidebar-foreground: #241f18;
-  --header: rgba(255, 255, 255, 0.7);
-  --surface-elevated: rgba(255, 255, 255, 0.9);
-  --ring: rgba(183, 121, 31, 0.28);
-  --shadow-soft: 0 20px 60px rgba(73, 58, 35, 0.08);
+  --header: rgba(255, 251, 244, 0.74);
+  --surface-elevated: rgba(255, 253, 250, 0.94);
+  --surface-strong: rgba(255, 248, 239, 0.96);
+  --ring: rgba(188, 122, 48, 0.26);
+  --shadow-soft: 0 28px 80px rgba(83, 59, 24, 0.1);
+  --shadow-crisp: 0 10px 28px rgba(78, 54, 24, 0.08);
 }
 
 .dark {
   color-scheme: dark;
-  --background: #12110f;
-  --foreground: #f4efe7;
-  --card: rgba(30, 28, 24, 0.82);
+  --background: #12100d;
+  --foreground: #f3ede2;
+  --card: rgba(26, 24, 21, 0.88);
   --card-foreground: #f4efe7;
-  --muted: rgba(47, 42, 36, 0.9);
-  --muted-foreground: #b6ab9c;
-  --border: rgba(255, 248, 235, 0.08);
+  --muted: rgba(49, 43, 36, 0.96);
+  --muted-foreground: #b7ad9c;
+  --border: rgba(255, 248, 235, 0.09);
   --accent: #d6a15c;
   --accent-foreground: #1a140d;
-  --sidebar: rgba(22, 21, 18, 0.9);
+  --sidebar: rgba(22, 20, 18, 0.94);
   --sidebar-foreground: #f4efe7;
-  --header: rgba(28, 26, 22, 0.74);
-  --surface-elevated: rgba(40, 36, 31, 0.92);
+  --header: rgba(28, 25, 22, 0.8);
+  --surface-elevated: rgba(38, 34, 30, 0.95);
+  --surface-strong: rgba(42, 37, 31, 0.98);
   --ring: rgba(214, 161, 92, 0.28);
-  --shadow-soft: 0 24px 80px rgba(0, 0, 0, 0.28);
+  --shadow-soft: 0 30px 90px rgba(0, 0, 0, 0.32);
+  --shadow-crisp: 0 12px 32px rgba(0, 0, 0, 0.18);
 }
 
 * {
@@ -51,8 +55,9 @@ html {
 body {
   min-height: 100vh;
   background:
-    radial-gradient(circle at top left, rgba(255, 249, 240, 0.84), transparent 28%),
-    linear-gradient(180deg, #f8f6f2 0%, #f1eee8 100%);
+    radial-gradient(circle at top left, rgba(255, 245, 229, 0.88), transparent 24%),
+    radial-gradient(circle at top right, rgba(216, 180, 126, 0.14), transparent 18%),
+    linear-gradient(180deg, #f7f2ea 0%, #f2ece2 100%);
   color: var(--foreground);
   font-family: "Aptos", "Segoe UI Variable Text", "Segoe UI", "Helvetica Neue", sans-serif;
   font-size: 15px;
@@ -61,8 +66,9 @@ body {
 
 .dark body {
   background:
-    radial-gradient(circle at top left, rgba(93, 68, 38, 0.18), transparent 24%),
-    linear-gradient(180deg, #141311 0%, #0f0e0c 100%);
+    radial-gradient(circle at top left, rgba(144, 101, 43, 0.16), transparent 20%),
+    radial-gradient(circle at top right, rgba(91, 61, 22, 0.18), transparent 18%),
+    linear-gradient(180deg, #14120f 0%, #0f0d0b 100%);
 }
 
 ::selection {
@@ -94,6 +100,29 @@ h4 {
   background: var(--card);
   backdrop-filter: blur(18px);
   box-shadow: var(--shadow-soft);
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease;
+}
+
+.surface-strong {
+  background: var(--surface-strong);
+  box-shadow: var(--shadow-crisp);
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease;
+}
+
+.section-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
 }
 
 .page-copy p {
@@ -102,10 +131,11 @@ h4 {
 }
 
 .editor-prose {
-  min-height: 420px;
+  min-height: 520px;
   color: var(--foreground);
-  font-size: 1.02rem;
-  line-height: 1.9;
+  font-size: 1.06rem;
+  line-height: 1.95;
+  max-width: 760px;
 }
 
 .editor-prose > * + * {
@@ -121,15 +151,15 @@ h4 {
 }
 
 .editor-prose h1 {
-  font-size: 2.25rem;
+  font-size: 2.45rem;
 }
 
 .editor-prose h2 {
-  font-size: 1.75rem;
+  font-size: 1.9rem;
 }
 
 .editor-prose h3 {
-  font-size: 1.35rem;
+  font-size: 1.45rem;
 }
 
 .editor-prose p,
@@ -189,4 +219,148 @@ h4 {
   float: left;
   height: 0;
   pointer-events: none;
+}
+
+.editor-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-scale {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes overlay-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.animate-fade-scale {
+  animation: fade-scale 260ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.animate-overlay-fade {
+  animation: overlay-fade 220ms ease both;
+}
+
+.animate-toast-in {
+  animation: toast-in 240ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.hover-lift {
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+.skeleton-shimmer {
+  position: relative;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--foreground) 6%, transparent);
+}
+
+.skeleton-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.24), transparent);
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+.soft-glow {
+  position: relative;
+}
+
+.soft-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), transparent 38%);
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -4,12 +4,24 @@ interface EditorSaveIndicatorProps {
 
 export function EditorSaveIndicator({ saveState }: EditorSaveIndicatorProps) {
   const label =
-    saveState === "saving" ? "Autosaving..." : saveState === "dirty" ? "Unsaved changes" : "All changes saved";
+    saveState === "saving"
+      ? "Đang tự động lưu..."
+      : saveState === "dirty"
+        ? "Có thay đổi chưa lưu"
+        : "Đã lưu mọi thay đổi";
+
+  const toneClass =
+    saveState === "saving"
+      ? "border-[var(--accent)]/30 text-[var(--foreground)]"
+      : saveState === "dirty"
+        ? "border-[var(--border)] text-[var(--foreground)]"
+        : "border-[var(--border)] text-[var(--muted-foreground)]";
 
   return (
-    <div className="rounded-full border border-[var(--border)] bg-[var(--surface-elevated)] px-3 py-1 text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+    <div
+      className={`rounded-full bg-[var(--surface-elevated)] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] shadow-sm transition ${toneClass}`}
+    >
       {label}
     </div>
   );
 }
-

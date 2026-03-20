@@ -10,9 +10,8 @@ export function DocumentTitleInput({ title, onChange }: DocumentTitleInputProps)
     <input
       value={title}
       onChange={(event) => onChange(event.target.value)}
-      placeholder="Untitled"
-      className="editor-display w-full border-none bg-transparent text-4xl text-[var(--foreground)] outline-none placeholder:text-[var(--muted-foreground)] sm:text-5xl"
+      placeholder="Chưa đặt tên"
+      className="editor-display w-full border-none bg-transparent text-[2.6rem] leading-[1.05] text-[var(--foreground)] outline-none placeholder:text-[var(--muted-foreground)] sm:text-[3.4rem]"
     />
   );
 }
-

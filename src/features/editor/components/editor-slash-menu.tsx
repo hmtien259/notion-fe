@@ -1,6 +1,7 @@
 "use client";
 
 import { Editor } from "@tiptap/react";
+import { CornerDownLeft } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { editorToolbarActions } from "../lib/editor-toolbar-actions";
 
@@ -87,8 +88,9 @@ export function EditorSlashMenu({ editor }: EditorSlashMenuProps) {
   const activeSlashContext = slashContext;
 
   return (
-    <div className="surface-card absolute left-6 top-6 z-10 w-full max-w-xs rounded-[24px] border border-[var(--border)] p-2 shadow-[0_20px_50px_rgba(0,0,0,0.14)]">
-      <p className="px-3 py-2 text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)]">Insert block</p>
+    <div className="surface-card animate-fade-scale absolute left-6 top-6 z-10 w-full max-w-sm rounded-[24px] border border-[var(--border)] p-2 shadow-[0_20px_50px_rgba(0,0,0,0.14)]">
+      <p className="px-3 pt-2 text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)]">Chèn khối nội dung</p>
+      <p className="px-3 pb-2 pt-1 text-xs text-[var(--muted-foreground)]">Gõ để lọc, dùng mũi tên để chọn.</p>
       <div className="space-y-1">
         {items.map((item, index) => (
           <button
@@ -103,12 +105,17 @@ export function EditorSlashMenu({ editor }: EditorSlashMenuProps) {
               item.run(editor);
             }}
             className={[
-              "flex w-full items-center justify-between rounded-2xl px-3 py-2 text-left text-sm transition",
-              index === selectedIndex ? "bg-[var(--foreground)] text-[var(--card)]" : "hover:bg-[var(--surface-elevated)]",
+              "group flex w-full items-center justify-between rounded-2xl px-3 py-2.5 text-left text-sm transition",
+              index === selectedIndex
+                ? "bg-[var(--foreground)] text-[var(--card)]"
+                : "hover:bg-[var(--surface-elevated)] hover:-translate-y-[1px]",
             ].join(" ")}
           >
-            <span>{item.label}</span>
-            <span className="text-xs opacity-70">Enter</span>
+            <span className="font-medium">{item.label}</span>
+            <span className="inline-flex items-center gap-1 text-xs opacity-70">
+              <CornerDownLeft className="h-3 w-3" />
+              Enter
+            </span>
           </button>
         ))}
       </div>

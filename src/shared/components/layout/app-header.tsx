@@ -15,31 +15,31 @@ export function AppHeader({ title, description, onToggleSidebar }: AppHeaderProp
   const openCommandPalette = useCommandPaletteStore((state) => state.open);
 
   return (
-    <header className="surface-card flex flex-col gap-4 rounded-[28px] border border-[var(--border)] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+    <header className="surface-strong soft-glow animate-fade-up flex flex-col gap-5 rounded-[32px] border border-[var(--border)] px-5 py-5 sm:flex-row sm:items-end sm:justify-between sm:px-7">
       <div className="min-w-0">
         <div className="mb-3 flex items-center gap-2 lg:hidden">
           <button
             type="button"
             onClick={onToggleSidebar}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border)] bg-[var(--surface-elevated)] text-[var(--foreground)]"
-            aria-label="Open sidebar"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border)] bg-[var(--surface-elevated)] text-[var(--foreground)] shadow-sm"
+            aria-label="Mở thanh bên"
           >
             <Menu className="h-4 w-4" />
           </button>
         </div>
-        <p className="text-xs uppercase tracking-[0.22em] text-[var(--muted-foreground)]">Workspace</p>
-        <div className="mt-2 text-2xl font-semibold text-[var(--foreground)]">{title}</div>
-        <div className="mt-1 text-sm text-[var(--muted-foreground)]">{description}</div>
+        <p className="section-eyebrow">Không gian làm việc</p>
+        <div className="mt-3 text-[1.9rem] font-semibold leading-tight text-[var(--foreground)]">{title}</div>
+        <div className="mt-2 max-w-2xl text-sm leading-7 text-[var(--muted-foreground)]">{description}</div>
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center gap-3">
         <button
           type="button"
           onClick={openCommandPalette}
-          className="hidden items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--header)] px-3 py-2 text-sm text-[var(--muted-foreground)] md:flex"
+          className="hover-lift hidden items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--header)] px-4 py-2.5 text-sm text-[var(--muted-foreground)] transition hover:border-[var(--accent)]/40 hover:text-[var(--foreground)] md:flex"
         >
           <Search className="h-4 w-4" />
-          Search documents
+          Tìm tài liệu
           <span className="rounded-full border border-[var(--border)] px-2 py-0.5 text-xs">Ctrl K</span>
         </button>
         <ThemeToggle />
@@ -47,4 +47,3 @@ export function AppHeader({ title, description, onToggleSidebar }: AppHeaderProp
     </header>
   );
 }
-

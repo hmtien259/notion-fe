@@ -10,7 +10,7 @@ export interface EditorToolbarAction {
 export const editorToolbarActions: EditorToolbarAction[] = [
   {
     id: "paragraph",
-    label: "Text",
+    label: "Văn bản",
     isActive: (editor) => editor.isActive("paragraph"),
     run: (editor) => editor.chain().focus().setParagraph().run(),
   },
@@ -28,25 +28,25 @@ export const editorToolbarActions: EditorToolbarAction[] = [
   },
   {
     id: "bullet-list",
-    label: "Bullet",
+    label: "Danh sách",
     isActive: (editor) => editor.isActive("bulletList"),
     run: (editor) => editor.chain().focus().toggleBulletList().run(),
   },
   {
     id: "ordered-list",
-    label: "Numbered",
+    label: "Đánh số",
     isActive: (editor) => editor.isActive("orderedList"),
     run: (editor) => editor.chain().focus().toggleOrderedList().run(),
   },
   {
     id: "task-list",
-    label: "Checklist",
+    label: "Việc cần làm",
     isActive: (editor) => editor.isActive("taskList"),
     run: (editor) => editor.chain().focus().toggleTaskList().run(),
   },
   {
     id: "blockquote",
-    label: "Quote",
+    label: "Trích dẫn",
     isActive: (editor) => editor.isActive("blockquote"),
     run: (editor) => editor.chain().focus().toggleBlockquote().run(),
   },
@@ -57,4 +57,3 @@ export const editorToolbarActions: EditorToolbarAction[] = [
     run: (editor) => editor.chain().focus().toggleCodeBlock().run(),
   },
 ];
-

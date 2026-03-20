@@ -4,12 +4,12 @@ import { AppProviders } from "./providers";
 
 export const metadata: Metadata = {
   title: "Notion HMT",
-  description: "A Notion-inspired editor MVP with scalable frontend architecture.",
+  description: "Trình soạn thảo lấy cảm hứng từ Notion với kiến trúc frontend dễ mở rộng.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="vi" suppressHydrationWarning>
       <body suppressHydrationWarning>
         <AppProviders>{children}</AppProviders>
       </body>

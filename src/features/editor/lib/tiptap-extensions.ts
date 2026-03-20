@@ -30,18 +30,18 @@ export const editorExtensions = [
   Placeholder.configure({
     placeholder: ({ node }) => {
       if (node.type.name === "heading") {
-        return "Heading";
+        return "Tiêu đề";
       }
 
       if (node.type.name === "codeBlock") {
-        return "Write code or paste a snippet";
+        return "Viết đoạn mã hoặc dán một snippet";
       }
 
       if (node.type.name === "taskItem") {
-        return "Add a task";
+        return "Thêm một việc cần làm";
       }
 
-      return "Type '/' for commands later, or start writing...";
+      return "Gõ '/' để mở lệnh nhanh hoặc bắt đầu viết...";
     },
     includeChildren: true,
   }),

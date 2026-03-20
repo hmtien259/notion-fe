@@ -2,7 +2,7 @@ import { Skeleton } from "@/shared/components/feedback/skeleton";
 
 export function DocumentRouteSkeleton() {
   return (
-    <section className="space-y-5">
+    <section className="animate-fade-up space-y-5">
       <div className="surface-card overflow-hidden rounded-[32px] border border-[var(--border)]">
         <Skeleton className="h-44 w-full rounded-none" />
         <div className="px-6 pb-8 sm:px-10 sm:pb-10">
@@ -16,4 +16,3 @@ export function DocumentRouteSkeleton() {
     </section>
   );
 }
-

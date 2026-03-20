@@ -4,8 +4,8 @@ import { AppShell } from "@/shared/components/layout/app-shell";
 export default function HomePage() {
   return (
     <AppShell
-      title="Home"
-      description="A clean frontend foundation for a Notion-inspired editor."
+      title="Trang chủ"
+      description="Nền tảng giao diện gọn gàng cho một trình soạn thảo lấy cảm hứng từ Notion."
     >
       <HomeEmptyState />
     </AppShell>

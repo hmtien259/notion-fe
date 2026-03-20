@@ -11,11 +11,11 @@ export function DocumentPageHeader({ documentId }: DocumentPageHeaderProps) {
   const documentQuery = useDocumentDetailQuery(documentId);
 
   if (documentQuery.isLoading) {
-    return <span>Document</span>;
+    return <span>Tài liệu</span>;
   }
 
   if (!documentQuery.data) {
-    return <span>Document</span>;
+    return <span>Tài liệu</span>;
   }
 
   return (

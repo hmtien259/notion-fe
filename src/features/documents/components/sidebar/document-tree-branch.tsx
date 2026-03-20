@@ -27,7 +27,7 @@ export function DocumentTreeBranch({ node, depth, activeDocumentId }: DocumentTr
             !hasChildren && "pointer-events-none opacity-0",
           )}
           type="button"
-          aria-label={isExpanded ? "Collapse page" : "Expand page"}
+          aria-label={isExpanded ? "Thu gọn trang" : "Mở rộng trang"}
           onClick={() => toggleExpanded(node.id)}
         >
           <ChevronRight className={cn("h-4 w-4 transition-transform", isExpanded && "rotate-90")} />
@@ -39,7 +39,7 @@ export function DocumentTreeBranch({ node, depth, activeDocumentId }: DocumentTr
       </div>
 
       {hasChildren && isExpanded ? (
-        <div className="mt-1 space-y-1">
+        <div className="animate-fade-up mt-1 space-y-1 overflow-hidden">
           {node.children.map((child) => (
             <DocumentTreeBranch key={child.id} node={child} depth={depth + 1} activeDocumentId={activeDocumentId} />
           ))}
@@ -48,4 +48,3 @@ export function DocumentTreeBranch({ node, depth, activeDocumentId }: DocumentTr
     </div>
   );
 }
-

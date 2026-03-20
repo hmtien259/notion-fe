@@ -164,7 +164,7 @@ export class MockDocumentRepository implements DocumentRepository {
     const parent = input.parentId
       ? storage.list().find((document) => document.id === input.parentId && !document.isArchived) ?? null
       : null;
-    const title = input.title?.trim() || "Untitled";
+    const title = input.title?.trim() || "Chưa đặt tên";
     const createdDocument: Document = {
       id: createDocumentId(title),
       parentId: input.parentId ?? null,
@@ -200,7 +200,7 @@ export class MockDocumentRepository implements DocumentRepository {
       throw new Error("Document not found");
     }
 
-    const nextTitle = input.title.trim() || "Untitled";
+    const nextTitle = input.title.trim() || "Chưa đặt tên";
     const nextDocuments = [...documents];
     const currentDocument = nextDocuments[documentIndex];
 
@@ -226,7 +226,7 @@ export class MockDocumentRepository implements DocumentRepository {
       throw new Error("Document not found");
     }
 
-    const nextTitle = input.title.trim() || "Untitled";
+    const nextTitle = input.title.trim() || "Chưa đặt tên";
     const nextDocuments = [...documents];
     const currentDocument = nextDocuments[documentIndex];
 

@@ -24,7 +24,7 @@ export function ToastViewport() {
       {toasts.map((toast) => (
         <div
           key={toast.id}
-          className="surface-card pointer-events-auto rounded-2xl border border-[var(--border)] px-4 py-3 shadow-[0_18px_40px_rgba(0,0,0,0.12)]"
+          className="surface-card animate-toast-in pointer-events-auto rounded-2xl border border-[var(--border)] px-4 py-3 shadow-[0_18px_40px_rgba(0,0,0,0.12)]"
         >
           <p className="text-sm font-semibold text-[var(--foreground)]">{toast.title}</p>
           {toast.description ? <p className="mt-1 text-sm text-[var(--muted-foreground)]">{toast.description}</p> : null}
@@ -33,4 +33,3 @@ export function ToastViewport() {
     </div>
   );
 }
-

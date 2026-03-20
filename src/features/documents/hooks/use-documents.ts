@@ -11,10 +11,7 @@ import {
 import { getDocumentService } from "@/services/documents/document.service";
 import { useToast } from "@/shared/hooks/use-toast";
 import { invalidateDocumentQueries } from "../lib/document-query-cache";
-import {
-  documentDetailQueryOptions,
-  documentTreeQueryOptions,
-} from "../lib/document-query-options";
+import { documentDetailQueryOptions, documentTreeQueryOptions } from "../lib/document-query-options";
 import { documentQueryKeys } from "../lib/document-query-keys";
 
 const documentService = getDocumentService();
@@ -37,8 +34,8 @@ export function useCreateDocumentMutation() {
     onSuccess: async (document) => {
       await invalidateDocumentQueries(queryClient);
       toast({
-        title: "Page created",
-        description: `${document.title} is ready to edit.`,
+        title: "Đã tạo trang mới",
+        description: `${document.title} đã sẵn sàng để chỉnh sửa.`,
       });
       router.push(`/documents/${document.id}`);
     },
@@ -55,8 +52,8 @@ export function useRenameDocumentMutation() {
       await invalidateDocumentQueries(queryClient);
       queryClient.setQueryData(documentQueryKeys.detail(document.id), document);
       toast({
-        title: "Page renamed",
-        description: `Updated to ${document.title}.`,
+        title: "Đã đổi tên trang",
+        description: `Tên mới là ${document.title}.`,
       });
     },
   });
@@ -74,8 +71,8 @@ export function useSaveDocumentMutation() {
     },
     onError: () => {
       toast({
-        title: "Autosave failed",
-        description: "We could not persist your latest edits to the mock layer.",
+        title: "Tự động lưu thất bại",
+        description: "Không thể lưu thay đổi mới nhất lên backend. Vui lòng thử lại.",
       });
     },
   });
@@ -91,8 +88,8 @@ export function useArchiveDocumentMutation(activeDocumentId?: DocumentId) {
     onSuccess: async (_, archivedDocumentId) => {
       await invalidateDocumentQueries(queryClient);
       toast({
-        title: "Page archived",
-        description: "The page was removed from the active workspace.",
+        title: "Đã lưu trữ trang",
+        description: "Trang đã được xóa khỏi danh sách đang hoạt động.",
       });
 
       if (activeDocumentId === archivedDocumentId) {

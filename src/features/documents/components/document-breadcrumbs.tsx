@@ -14,11 +14,11 @@ export function DocumentBreadcrumbs({ documentId }: DocumentBreadcrumbsProps) {
   const titleToIdMap = new Map(navigationQuery.data?.map((entry) => [entry.title, entry.id]) ?? []);
 
   if (navigationQuery.isLoading) {
-    return <div className="h-5 w-44 animate-pulse rounded-full bg-black/6 dark:bg-white/8" />;
+    return <div className="skeleton-shimmer h-5 w-44 rounded-full" />;
   }
 
   if (!item) {
-    return <span>Document</span>;
+    return <span>Tài liệu</span>;
   }
 
   return (
@@ -31,7 +31,7 @@ export function DocumentBreadcrumbs({ documentId }: DocumentBreadcrumbsProps) {
           ) : (
             <Link
               href={titleToIdMap.get(segment) ? `/documents/${titleToIdMap.get(segment)}` : "/"}
-              className="hover:text-[var(--foreground)]"
+              className="transition hover:text-[var(--foreground)]"
             >
               {segment}
             </Link>

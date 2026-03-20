@@ -11,7 +11,7 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <Button variant="outline" size="icon" aria-label="Toggle theme">
+      <Button variant="outline" size="icon" aria-label="Chuyển giao diện sáng tối">
         <Sun className="h-4 w-4" />
       </Button>
     );
@@ -23,7 +23,7 @@ export function ThemeToggle() {
     <Button
       variant="outline"
       size="icon"
-      aria-label="Toggle theme"
+      aria-label="Chuyển giao diện sáng tối"
       onClick={() => setTheme(isDark ? "light" : "dark")}
       type="button"
     >

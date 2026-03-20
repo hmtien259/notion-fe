@@ -15,12 +15,25 @@ interface StateCardProps {
 
 export function StateCard({ title, description, action, icon, className }: StateCardProps) {
   return (
-    <div className={cn("rounded-[24px] border border-dashed border-[var(--border)] px-4 py-6 text-center", className)}>
-      {icon ? <div className="mb-3 flex justify-center text-[var(--muted-foreground)]">{icon}</div> : null}
-      <p className="text-sm font-medium text-[var(--foreground)]">{title}</p>
-      <p className="mt-2 text-sm text-[var(--muted-foreground)]">{description}</p>
+    <div
+      className={cn(
+        "surface-card animate-fade-up rounded-[24px] border border-dashed border-[var(--border)] px-5 py-7 text-center",
+        className,
+      )}
+    >
+      {icon ? (
+        <div className="mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-2xl border border-[var(--border)] bg-[var(--surface-elevated)] text-[var(--muted-foreground)]">
+          {icon}
+        </div>
+      ) : null}
+      <p className="text-sm font-semibold text-[var(--foreground)]">{title}</p>
+      <p className="mt-2 text-sm leading-7 text-[var(--muted-foreground)]">{description}</p>
       {action ? (
-        <button type="button" onClick={action.onClick} className={buttonVariants({ variant: "outline", className: "mt-4" })}>
+        <button
+          type="button"
+          onClick={action.onClick}
+          className={buttonVariants({ variant: "outline", className: "mt-5 hover-lift" })}
+        >
           {action.label}
         </button>
       ) : null}

@@ -63,9 +63,9 @@ export function DocumentCommandPalette() {
   }
 
   return (
-    <div className="fixed inset-0 z-[60] bg-black/30 px-4 py-8 backdrop-blur-sm" onClick={close}>
+    <div className="animate-overlay-fade fixed inset-0 z-[60] bg-black/30 px-4 py-8 backdrop-blur-sm" onClick={close}>
       <div
-        className="surface-card mx-auto w-full max-w-2xl rounded-[28px] border border-[var(--border)] p-4"
+        className="surface-card animate-fade-scale mx-auto w-full max-w-2xl rounded-[28px] border border-[var(--border)] p-4"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="flex items-center gap-3 rounded-2xl border border-[var(--border)] bg-[var(--surface-elevated)] px-4 py-3">
@@ -74,7 +74,7 @@ export function DocumentCommandPalette() {
             autoFocus
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search documents or jump to a page"
+            placeholder="Tìm tài liệu hoặc chuyển nhanh đến một trang"
             className="w-full bg-transparent outline-none placeholder:text-[var(--muted-foreground)]"
           />
           <span className="rounded-full border border-[var(--border)] px-2 py-0.5 text-xs text-[var(--muted-foreground)]">Esc</span>
@@ -83,19 +83,19 @@ export function DocumentCommandPalette() {
         <div className="mt-4 max-h-[60vh] overflow-y-auto">
           {navigationQuery.isLoading ? (
             <div className="space-y-2">
-              <div className="h-14 animate-pulse rounded-2xl bg-black/6 dark:bg-white/8" />
-              <div className="h-14 animate-pulse rounded-2xl bg-black/6 dark:bg-white/8" />
-              <div className="h-14 animate-pulse rounded-2xl bg-black/6 dark:bg-white/8" />
+              <div className="skeleton-shimmer h-14 rounded-2xl" />
+              <div className="skeleton-shimmer h-14 rounded-2xl" />
+              <div className="skeleton-shimmer h-14 rounded-2xl" />
             </div>
           ) : navigationQuery.isError ? (
             <StateCard
-              title="Search unavailable"
-              description="We could not load document navigation right now."
+              title="Không thể tìm kiếm lúc này"
+              description="Không tải được dữ liệu điều hướng tài liệu."
               icon={<AlertCircle className="h-5 w-5" />}
-              action={{ label: "Retry", onClick: () => navigationQuery.refetch() }}
+              action={{ label: "Thử lại", onClick: () => navigationQuery.refetch() }}
             />
           ) : results.length === 0 ? (
-            <StateCard title="No matches" description="No documents match your search." />
+            <StateCard title="Không có kết quả" description="Không có tài liệu nào phù hợp với từ khóa tìm kiếm." />
           ) : (
             <div className="space-y-2">
               {results.map((item) => (
@@ -104,7 +104,7 @@ export function DocumentCommandPalette() {
                   href={`/documents/${item.id}`}
                   onClick={close}
                   className={cn(
-                    "flex items-center gap-3 rounded-2xl px-4 py-3 transition",
+                    "hover-lift flex items-center gap-3 rounded-2xl px-4 py-3 transition",
                     pathname === `/documents/${item.id}`
                       ? "bg-[var(--foreground)] text-[var(--card)]"
                       : "hover:bg-[var(--surface-elevated)]",

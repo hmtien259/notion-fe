@@ -30,7 +30,7 @@ export function DocumentTreeItem({ node, depth, activeDocumentId }: DocumentTree
   const isEditing = editingId === node.id;
 
   function handleRenameCommit() {
-    const nextTitle = draftTitle.trim() || "Untitled";
+    const nextTitle = draftTitle.trim() || "Chưa đặt tên";
     setDraftTitle(nextTitle);
 
     if (nextTitle !== node.title) {
@@ -45,12 +45,14 @@ export function DocumentTreeItem({ node, depth, activeDocumentId }: DocumentTree
       {isEditing ? (
         <div
           className={cn(
-            "flex min-w-0 flex-1 items-center gap-3 rounded-2xl px-3 py-2 text-sm",
-            isActive ? "bg-[var(--surface-elevated)] text-[var(--foreground)]" : "text-[var(--foreground)]",
+            "flex min-w-0 flex-1 items-center gap-3 rounded-[18px] px-3.5 py-2.5 text-sm",
+            isActive
+              ? "border border-[var(--border)] bg-[var(--surface-elevated)] text-[var(--foreground)] ring-1 ring-[var(--ring)]"
+              : "bg-[var(--surface-elevated)] text-[var(--foreground)]",
           )}
           style={{ marginLeft: `${depth * 12}px` }}
         >
-          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface-elevated)] text-[11px] font-semibold">
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-black/5 text-[11px] font-semibold dark:bg-white/10">
             {node.icon}
           </span>
           <input
@@ -75,10 +77,10 @@ export function DocumentTreeItem({ node, depth, activeDocumentId }: DocumentTree
         <Link
           href={`/documents/${node.id}`}
           className={cn(
-            "flex min-w-0 flex-1 items-center gap-3 rounded-2xl px-3 py-2 text-sm transition",
+            "flex min-w-0 flex-1 items-center gap-3 rounded-[18px] px-3.5 py-2.5 text-sm transition duration-200",
             isActive
-              ? "bg-[var(--surface-elevated)] text-[var(--foreground)]"
-              : "text-[var(--muted-foreground)] hover:bg-[var(--surface-elevated)]/70",
+              ? "border border-[var(--border)] bg-[var(--surface-elevated)] text-[var(--foreground)] shadow-sm ring-1 ring-[var(--ring)]"
+              : "text-[var(--muted-foreground)] hover:-translate-y-[1px] hover:bg-[var(--surface-elevated)]/80 hover:text-[var(--foreground)]",
           )}
           style={{ marginLeft: `${depth * 12}px` }}
           onDoubleClick={(event) => {
@@ -87,18 +89,25 @@ export function DocumentTreeItem({ node, depth, activeDocumentId }: DocumentTree
             setDraftTitle(node.title);
           }}
         >
-          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface-elevated)] text-[11px] font-semibold">
+          <span
+            className={cn(
+              "flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border text-[11px] font-semibold shadow-sm",
+              isActive
+                ? "border-[var(--border)] bg-[color-mix(in_srgb,var(--accent)_18%,white)] text-[var(--foreground)] dark:bg-[color-mix(in_srgb,var(--accent)_22%,black)]"
+                : "border-[var(--border)] bg-[var(--surface-elevated)] text-[var(--foreground)]",
+            )}
+          >
             {node.icon}
           </span>
           <span className="truncate">{node.title}</span>
         </Link>
       )}
 
-      <div className="flex items-center gap-1 opacity-0 transition group-hover:opacity-100">
+      <div className="flex items-center gap-1 opacity-0 transition group-hover:opacity-100 group-focus-within:opacity-100">
         <button
           className="flex h-8 w-8 items-center justify-center rounded-lg text-[var(--muted-foreground)] transition hover:bg-[var(--surface-elevated)] hover:text-[var(--foreground)]"
           type="button"
-          aria-label="Create child page"
+          aria-label="Tạo trang con"
           onClick={() => {
             ensureExpanded(node.id);
             createDocumentMutation.mutate({ parentId: node.id });
@@ -109,7 +118,7 @@ export function DocumentTreeItem({ node, depth, activeDocumentId }: DocumentTree
         <button
           className="flex h-8 w-8 items-center justify-center rounded-lg text-[var(--muted-foreground)] transition hover:bg-[var(--surface-elevated)] hover:text-[var(--foreground)]"
           type="button"
-          aria-label="Rename page"
+          aria-label="Đổi tên trang"
           onClick={() => {
             setEditingId(node.id);
             setDraftTitle(node.title);
@@ -120,7 +129,7 @@ export function DocumentTreeItem({ node, depth, activeDocumentId }: DocumentTree
         <button
           className="flex h-8 w-8 items-center justify-center rounded-lg text-[var(--muted-foreground)] transition hover:bg-[var(--surface-elevated)] hover:text-[var(--foreground)]"
           type="button"
-          aria-label="Archive page"
+          aria-label="Lưu trữ trang"
           onClick={() => archiveDocumentMutation.mutate(node.id)}
         >
           <Archive className="h-4 w-4" />

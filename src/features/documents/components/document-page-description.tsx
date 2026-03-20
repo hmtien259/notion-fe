@@ -10,15 +10,14 @@ export function DocumentPageDescription({ documentId }: DocumentPageDescriptionP
   const documentQuery = useDocumentDetailQuery(documentId);
 
   if (documentQuery.isLoading) {
-    return <span>Loading document metadata...</span>;
+    return <span>Đang tải thông tin tài liệu...</span>;
   }
 
   return (
     <span>
       {documentQuery.data
-        ? "Mock-backed document page connected through the service and repository layers."
-        : "Document not found in the current mock workspace."}
+        ? "Trang tài liệu đang kết nối qua lớp service và repository, sẵn sàng làm việc với backend."
+        : "Không tìm thấy tài liệu trong không gian làm việc hiện tại."}
     </span>
   );
 }
-
