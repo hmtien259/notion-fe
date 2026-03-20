@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { AlertCircle } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { DocumentEditorSurface } from "@/features/editor/components/document-editor-surface";
+import { StateCard } from "@/shared/components/feedback/state-card";
 import { useDocumentDetailQuery } from "../hooks/use-documents";
 import { DocumentRouteSkeleton } from "./document-route-skeleton";
 
@@ -15,6 +17,18 @@ export function DocumentRouteScreen({ documentId }: DocumentRouteScreenProps) {
 
   if (documentQuery.isLoading) {
     return <DocumentRouteSkeleton />;
+  }
+
+  if (documentQuery.isError) {
+    return (
+      <StateCard
+        title="Could not load document"
+        description="Please retry the request or return to the workspace."
+        icon={<AlertCircle className="h-5 w-5" />}
+        action={{ label: "Retry", onClick: () => documentQuery.refetch() }}
+        className="surface-card min-h-[420px] rounded-[28px] border border-[var(--border)] px-8 py-14"
+      />
+    );
   }
 
   if (!documentQuery.data) {

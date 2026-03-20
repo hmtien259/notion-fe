@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { Search } from "lucide-react";
+import { AlertCircle, Search } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useDocumentNavigationQuery } from "@/features/documents/hooks/use-document-navigation";
+import { StateCard } from "@/shared/components/feedback/state-card";
 import { useDebounceValue } from "@/shared/hooks/use-debounce-value";
 import { cn } from "@/shared/lib/utils";
 import { useCommandPaletteStore } from "./command-palette-store";
@@ -86,10 +87,15 @@ export function DocumentCommandPalette() {
               <div className="h-14 animate-pulse rounded-2xl bg-black/6 dark:bg-white/8" />
               <div className="h-14 animate-pulse rounded-2xl bg-black/6 dark:bg-white/8" />
             </div>
+          ) : navigationQuery.isError ? (
+            <StateCard
+              title="Search unavailable"
+              description="We could not load document navigation right now."
+              icon={<AlertCircle className="h-5 w-5" />}
+              action={{ label: "Retry", onClick: () => navigationQuery.refetch() }}
+            />
           ) : results.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-[var(--border)] px-4 py-8 text-center text-sm text-[var(--muted-foreground)]">
-              No documents match your search.
-            </div>
+            <StateCard title="No matches" description="No documents match your search." />
           ) : (
             <div className="space-y-2">
               {results.map((item) => (

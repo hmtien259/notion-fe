@@ -1,14 +1,8 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { getDocumentService } from "@/services/documents/document.service";
-
-const documentService = getDocumentService();
+import { documentNavigationQueryOptions } from "../lib/document-query-options";
 
 export function useDocumentNavigationQuery() {
-  return useQuery({
-    queryKey: ["documents", "navigation"],
-    queryFn: () => documentService.listDocumentNavigation(),
-  });
+  return useQuery(documentNavigationQueryOptions());
 }
-

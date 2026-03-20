@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { Home, Plus, Search } from "lucide-react";
+import { AlertCircle, Home, Plus, Search } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useCommandPaletteStore } from "@/shared/components/navigation/command-palette-store";
+import { StateCard } from "@/shared/components/feedback/state-card";
 import { cn } from "@/shared/lib/utils";
 import { useCreateDocumentMutation, useDocumentTreeQuery } from "../../hooks/use-documents";
 import { DocumentSidebarSkeleton } from "./document-sidebar-skeleton";
@@ -75,10 +76,19 @@ export function DocumentSidebar({ activeDocumentId }: DocumentSidebarProps) {
 
           <div className="mt-2 space-y-1">
             {treeQuery.isLoading ? <DocumentSidebarSkeleton /> : null}
+            {treeQuery.isError ? (
+              <StateCard
+                title="Could not load pages"
+                description="The document tree is unavailable right now."
+                icon={<AlertCircle className="h-5 w-5" />}
+                action={{ label: "Retry", onClick: () => treeQuery.refetch() }}
+              />
+            ) : null}
             {!treeQuery.isLoading && treeQuery.data?.length === 0 ? (
-              <div className="rounded-2xl border border-dashed border-[var(--border)] px-4 py-6 text-center text-sm text-[var(--muted-foreground)]">
-                No pages yet. Create your first document to get started.
-              </div>
+              <StateCard
+                title="No pages yet"
+                description="Create your first document to get started."
+              />
             ) : null}
             {treeQuery.data?.map((node) => (
               <DocumentTreeBranch key={node.id} node={node} depth={0} activeDocumentId={activeDocumentId} />

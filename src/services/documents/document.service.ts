@@ -6,10 +6,11 @@ import {
   SaveDocumentInput,
 } from "@/domain/types/document";
 import { buildDocumentTree } from "@/shared/lib/build-document-tree";
-import { MockDocumentRepository } from "./mock-document.repository";
+import { DocumentRepository } from "./document.repository";
+import { getDocumentRepository } from "./document-repository.factory";
 
-class DocumentService {
-  constructor(private readonly repository = new MockDocumentRepository()) {}
+export class DocumentService {
+  constructor(private readonly repository: DocumentRepository) {}
 
   async listDocuments() {
     return this.repository.list();
@@ -49,7 +50,7 @@ let documentService: DocumentService | null = null;
 
 export function getDocumentService() {
   if (!documentService) {
-    documentService = new DocumentService();
+    documentService = new DocumentService(getDocumentRepository());
   }
 
   return documentService;
