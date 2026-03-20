@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
+import { DocumentEditorSurface } from "@/features/editor/components/document-editor-surface";
 import { useDocumentDetailQuery } from "../hooks/use-documents";
-import { DocumentPlaceholderPage } from "./document-placeholder-page";
 
 interface DocumentRouteScreenProps {
   documentId: string;
@@ -35,6 +35,5 @@ export function DocumentRouteScreen({ documentId }: DocumentRouteScreenProps) {
     );
   }
 
-  return <DocumentPlaceholderPage document={documentQuery.data} />;
+  return <DocumentEditorSurface document={documentQuery.data} />;
 }
-

@@ -5,6 +5,8 @@ import {
   DocumentId,
   DocumentSummary,
   RenameDocumentInput,
+  RichTextNode,
+  SaveDocumentInput,
 } from "@/domain/types/document";
 import { mockDocumentsSeed } from "@/mocks/documents/documents.mock";
 import { DocumentRepository } from "./document.repository";
@@ -35,6 +37,22 @@ function createDocumentId(title: string) {
 
 function cloneSeed() {
   return structuredClone(mockDocumentsSeed);
+}
+
+function extractText(node: RichTextNode | undefined): string[] {
+  if (!node) {
+    return [];
+  }
+
+  const ownText = typeof node.text === "string" ? [node.text] : [];
+  const childText = node.content?.flatMap((childNode) => extractText(childNode)) ?? [];
+
+  return [...ownText, ...childText];
+}
+
+function createPreview(content: RichTextNode) {
+  const previewText = extractText(content).join(" ").replace(/\s+/g, " ").trim();
+  return previewText.slice(0, 160) || "Empty document";
 }
 
 class MockDocumentStorage {
@@ -127,6 +145,14 @@ export class MockDocumentRepository implements DocumentRepository {
       coverStyle:
         parent?.coverStyle ?? "linear-gradient(135deg, rgba(223,208,183,0.95), rgba(153,118,78,0.88))",
       preview: "New page placeholder. Editor content will be added in the next phase.",
+      content: {
+        type: "doc",
+        content: [
+          {
+            type: "paragraph",
+          },
+        ],
+      },
     };
 
     storage.write([...storage.list(), createdDocument]);
@@ -152,6 +178,34 @@ export class MockDocumentRepository implements DocumentRepository {
       ...currentDocument,
       title: nextTitle,
       icon: nextTitle.slice(0, 2).toUpperCase(),
+      updatedAt: new Date().toISOString(),
+    };
+
+    storage.write(nextDocuments);
+
+    return nextDocuments[documentIndex];
+  }
+
+  async save(input: SaveDocumentInput): Promise<Document> {
+    await new Promise((resolve) => setTimeout(resolve, networkDelayMs));
+
+    const documents = storage.list();
+    const documentIndex = documents.findIndex((document) => document.id === input.id && !document.isArchived);
+
+    if (documentIndex === -1) {
+      throw new Error("Document not found");
+    }
+
+    const nextTitle = input.title.trim() || "Untitled";
+    const nextDocuments = [...documents];
+    const currentDocument = nextDocuments[documentIndex];
+
+    nextDocuments[documentIndex] = {
+      ...currentDocument,
+      title: nextTitle,
+      icon: nextTitle.slice(0, 2).toUpperCase(),
+      content: structuredClone(input.content),
+      preview: createPreview(input.content),
       updatedAt: new Date().toISOString(),
     };
 

@@ -1,5 +1,18 @@
 export type DocumentId = string;
 
+export interface RichTextMark {
+  type: string;
+  attrs?: Record<string, unknown>;
+}
+
+export interface RichTextNode {
+  type?: string;
+  attrs?: Record<string, unknown>;
+  content?: RichTextNode[];
+  marks?: RichTextMark[];
+  text?: string;
+}
+
 export interface DocumentSummary {
   id: DocumentId;
   parentId: DocumentId | null;
@@ -12,6 +25,7 @@ export interface DocumentSummary {
 export interface Document extends DocumentSummary {
   coverStyle?: string;
   preview: string;
+  content: RichTextNode;
 }
 
 export interface DocumentTreeNode extends DocumentSummary {
@@ -30,4 +44,10 @@ export interface RenameDocumentInput {
 
 export interface ArchiveDocumentInput {
   id: DocumentId;
+}
+
+export interface SaveDocumentInput {
+  id: DocumentId;
+  title: string;
+  content: RichTextNode;
 }

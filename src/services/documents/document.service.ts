@@ -3,6 +3,7 @@ import {
   CreateDocumentInput,
   DocumentId,
   RenameDocumentInput,
+  SaveDocumentInput,
 } from "@/domain/types/document";
 import { buildDocumentTree } from "@/shared/lib/build-document-tree";
 import { MockDocumentRepository } from "./mock-document.repository";
@@ -29,6 +30,10 @@ class DocumentService {
 
   async renameDocument(input: RenameDocumentInput) {
     return this.repository.rename(input);
+  }
+
+  async saveDocument(input: SaveDocumentInput) {
+    return this.repository.save(input);
   }
 
   async archiveDocument(input: ArchiveDocumentInput) {

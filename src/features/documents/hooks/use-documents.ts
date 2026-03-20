@@ -2,7 +2,12 @@
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { CreateDocumentInput, DocumentId, RenameDocumentInput } from "@/domain/types/document";
+import {
+  CreateDocumentInput,
+  DocumentId,
+  RenameDocumentInput,
+  SaveDocumentInput,
+} from "@/domain/types/document";
 import { getDocumentService } from "@/services/documents/document.service";
 import { documentQueryKeys } from "../lib/document-query-keys";
 
@@ -44,6 +49,18 @@ export function useRenameDocumentMutation() {
     onSuccess: async (document) => {
       await queryClient.invalidateQueries({ queryKey: documentQueryKeys.all });
       queryClient.setQueryData(documentQueryKeys.detail(document.id), document);
+    },
+  });
+}
+
+export function useSaveDocumentMutation() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (input: SaveDocumentInput) => documentService.saveDocument(input),
+    onSuccess: async (document) => {
+      queryClient.setQueryData(documentQueryKeys.detail(document.id), document);
+      await queryClient.invalidateQueries({ queryKey: documentQueryKeys.tree() });
     },
   });
 }
