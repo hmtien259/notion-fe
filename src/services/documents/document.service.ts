@@ -1,15 +1,38 @@
-import { DocumentId } from "@/domain/types/document";
+import {
+  ArchiveDocumentInput,
+  CreateDocumentInput,
+  DocumentId,
+  RenameDocumentInput,
+} from "@/domain/types/document";
+import { buildDocumentTree } from "@/shared/lib/build-document-tree";
 import { MockDocumentRepository } from "./mock-document.repository";
 
 class DocumentService {
   constructor(private readonly repository = new MockDocumentRepository()) {}
 
-  listDocuments() {
+  async listDocuments() {
     return this.repository.list();
   }
 
-  getDocumentById(documentId: DocumentId) {
+  async listDocumentTree() {
+    const documents = await this.repository.list();
+    return buildDocumentTree(documents);
+  }
+
+  async getDocumentById(documentId: DocumentId) {
     return this.repository.getById(documentId);
+  }
+
+  async createDocument(input: CreateDocumentInput) {
+    return this.repository.create(input);
+  }
+
+  async renameDocument(input: RenameDocumentInput) {
+    return this.repository.rename(input);
+  }
+
+  async archiveDocument(input: ArchiveDocumentInput) {
+    return this.repository.archive(input);
   }
 }
 
@@ -22,4 +45,3 @@ export function getDocumentService() {
 
   return documentService;
 }
-

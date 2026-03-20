@@ -4,12 +4,12 @@ import { AppSidebar } from "./app-sidebar";
 
 interface AppShellProps {
   children: ReactNode;
-  title: string;
-  description: string;
+  title: ReactNode;
+  description: ReactNode;
   activeDocumentId?: string;
 }
 
-export async function AppShell({ children, title, description, activeDocumentId }: AppShellProps) {
+export function AppShell({ children, title, description, activeDocumentId }: AppShellProps) {
   return (
     <main className="min-h-screen px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8">
       <div className="mx-auto grid min-h-[calc(100vh-2rem)] max-w-[1600px] gap-4 lg:grid-cols-[280px_minmax(0,1fr)]">

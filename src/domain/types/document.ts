@@ -14,3 +14,20 @@ export interface Document extends DocumentSummary {
   preview: string;
 }
 
+export interface DocumentTreeNode extends DocumentSummary {
+  children: DocumentTreeNode[];
+}
+
+export interface CreateDocumentInput {
+  parentId?: DocumentId | null;
+  title?: string;
+}
+
+export interface RenameDocumentInput {
+  id: DocumentId;
+  title: string;
+}
+
+export interface ArchiveDocumentInput {
+  id: DocumentId;
+}

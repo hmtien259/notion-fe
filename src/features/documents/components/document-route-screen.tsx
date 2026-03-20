@@ -1,0 +1,40 @@
+"use client";
+
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
+import { useDocumentDetailQuery } from "../hooks/use-documents";
+import { DocumentPlaceholderPage } from "./document-placeholder-page";
+
+interface DocumentRouteScreenProps {
+  documentId: string;
+}
+
+export function DocumentRouteScreen({ documentId }: DocumentRouteScreenProps) {
+  const documentQuery = useDocumentDetailQuery(documentId);
+
+  if (documentQuery.isLoading) {
+    return (
+      <section className="surface-card flex min-h-[420px] items-center justify-center rounded-[28px] border border-[var(--border)] px-8 py-14">
+        <p className="text-sm text-[var(--muted-foreground)]">Loading document...</p>
+      </section>
+    );
+  }
+
+  if (!documentQuery.data) {
+    return (
+      <section className="surface-card flex min-h-[420px] flex-col items-center justify-center rounded-[28px] border border-[var(--border)] px-8 py-14 text-center">
+        <p className="text-xs uppercase tracking-[0.24em] text-[var(--muted-foreground)]">Missing page</p>
+        <h1 className="editor-display mt-4 text-4xl text-[var(--foreground)]">This document is unavailable</h1>
+        <p className="mt-4 max-w-md text-sm text-[var(--muted-foreground)]">
+          It may have been archived or the route does not match any page in the mock repository.
+        </p>
+        <Link href="/" className={buttonVariants({ className: "mt-8" })}>
+          Back to home
+        </Link>
+      </section>
+    );
+  }
+
+  return <DocumentPlaceholderPage document={documentQuery.data} />;
+}
+

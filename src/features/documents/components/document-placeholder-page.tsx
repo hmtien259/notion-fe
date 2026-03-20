@@ -29,7 +29,7 @@ export function DocumentPlaceholderPage({ document }: DocumentPlaceholderPagePro
           <div className="page-copy mt-8 rounded-[24px] border border-[var(--border)] bg-[var(--surface-elevated)] p-6">
             <p>{document.preview}</p>
             <p className="mt-4">
-              The real editor surface will land in Phase 2. For now, this route proves the page architecture, document navigation, and reusable layout composition are in place.
+              The tree sidebar in Phase 2 now supports nested pages, inline rename, child page creation, and archive through the mock repository layer.
             </p>
           </div>
         </div>
@@ -37,4 +37,3 @@ export function DocumentPlaceholderPage({ document }: DocumentPlaceholderPagePro
     </section>
   );
 }
-

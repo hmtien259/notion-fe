@@ -1,9 +1,10 @@
+import { ReactNode } from "react";
 import { Search } from "lucide-react";
 import { ThemeToggle } from "@/shared/components/theme/theme-toggle";
 
 interface AppHeaderProps {
-  title: string;
-  description: string;
+  title: ReactNode;
+  description: ReactNode;
 }
 
 export function AppHeader({ title, description }: AppHeaderProps) {
