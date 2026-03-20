@@ -1,7 +1,7 @@
 "use client";
 
 import { Editor } from "@tiptap/react";
-import { CornerDownLeft } from "lucide-react";
+import { CornerDownLeft, Sparkles } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { editorToolbarActions } from "../lib/editor-toolbar-actions";
 
@@ -89,7 +89,10 @@ export function EditorSlashMenu({ editor }: EditorSlashMenuProps) {
 
   return (
     <div className="surface-card animate-fade-scale absolute left-6 top-6 z-10 w-full max-w-sm rounded-[24px] border border-[var(--border)] p-2 shadow-[0_20px_50px_rgba(0,0,0,0.14)]">
-      <p className="px-3 pt-2 text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)]">Chèn khối nội dung</p>
+      <div className="flex items-center gap-2 px-3 pt-2 text-xs uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+        <Sparkles className="h-3.5 w-3.5" />
+        Chèn khối nội dung
+      </div>
       <p className="px-3 pb-2 pt-1 text-xs text-[var(--muted-foreground)]">Gõ để lọc, dùng mũi tên để chọn.</p>
       <div className="space-y-1">
         {items.map((item, index) => (

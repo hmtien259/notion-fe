@@ -94,6 +94,7 @@ h4 {
 
 .editor-display {
   font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  text-wrap: balance;
 }
 
 .surface-card {
@@ -346,6 +347,20 @@ h4 {
   border-radius: inherit;
   pointer-events: none;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), transparent 38%);
+}
+
+.spotlight-frame {
+  position: relative;
+  overflow: hidden;
+}
+
+.spotlight-frame::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  pointer-events: none;
+  background: radial-gradient(circle at top, rgba(255, 255, 255, 0.2), transparent 42%);
+  opacity: 0.55;
 }
 
 @keyframes shimmer {

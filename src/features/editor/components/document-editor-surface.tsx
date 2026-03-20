@@ -8,6 +8,7 @@ import { useDocumentEditor } from "../hooks/use-document-editor";
 import { editorExtensions } from "../lib/tiptap-extensions";
 import { DocumentAppearanceControls } from "./document-appearance-controls";
 import { DocumentTitleInput } from "./document-title-input";
+import { EditorBubbleMenu } from "./editor-bubble-menu";
 import { EditorSaveIndicator } from "./editor-save-indicator";
 import { EditorSlashMenu } from "./editor-slash-menu";
 import { EditorToolbar } from "./editor-toolbar";
@@ -133,6 +134,7 @@ export function DocumentEditorSurface({ document }: DocumentEditorSurfaceProps) 
         </div>
 
         <div className="relative">
+          <EditorBubbleMenu editor={editor} />
           <EditorSlashMenu editor={editor} />
           <EditorContent editor={editor} />
         </div>
