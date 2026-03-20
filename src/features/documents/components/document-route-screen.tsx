@@ -4,6 +4,7 @@ import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { DocumentEditorSurface } from "@/features/editor/components/document-editor-surface";
 import { useDocumentDetailQuery } from "../hooks/use-documents";
+import { DocumentRouteSkeleton } from "./document-route-skeleton";
 
 interface DocumentRouteScreenProps {
   documentId: string;
@@ -13,11 +14,7 @@ export function DocumentRouteScreen({ documentId }: DocumentRouteScreenProps) {
   const documentQuery = useDocumentDetailQuery(documentId);
 
   if (documentQuery.isLoading) {
-    return (
-      <section className="surface-card flex min-h-[420px] items-center justify-center rounded-[28px] border border-[var(--border)] px-8 py-14">
-        <p className="text-sm text-[var(--muted-foreground)]">Loading document...</p>
-      </section>
-    );
+    return <DocumentRouteSkeleton />;
   }
 
   if (!documentQuery.data) {

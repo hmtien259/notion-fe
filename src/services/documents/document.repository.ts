@@ -3,6 +3,7 @@ import {
   CreateDocumentInput,
   Document,
   DocumentId,
+  DocumentNavigationItem,
   SaveDocumentInput,
   DocumentSummary,
   RenameDocumentInput,
@@ -10,6 +11,7 @@ import {
 
 export interface DocumentRepository {
   list(): Promise<DocumentSummary[]>;
+  listNavigation(): Promise<DocumentNavigationItem[]>;
   getById(documentId: DocumentId): Promise<Document | null>;
   create(input: CreateDocumentInput): Promise<Document>;
   rename(input: RenameDocumentInput): Promise<Document>;

@@ -3,6 +3,7 @@ import {
   CreateDocumentInput,
   Document,
   DocumentId,
+  DocumentNavigationItem,
   DocumentSummary,
   RenameDocumentInput,
   RichTextNode,
@@ -53,6 +54,20 @@ function extractText(node: RichTextNode | undefined): string[] {
 function createPreview(content: RichTextNode) {
   const previewText = extractText(content).join(" ").replace(/\s+/g, " ").trim();
   return previewText.slice(0, 160) || "Empty document";
+}
+
+function buildBreadcrumb(documentId: DocumentId, documents: Document[]) {
+  const breadcrumb: string[] = [];
+  let current = documents.find((document) => document.id === documentId && !document.isArchived) ?? null;
+
+  while (current) {
+    breadcrumb.unshift(current.title);
+    current = current.parentId
+      ? documents.find((document) => document.id === current?.parentId && !document.isArchived) ?? null
+      : null;
+  }
+
+  return breadcrumb;
 }
 
 class MockDocumentStorage {
@@ -118,6 +133,20 @@ export class MockDocumentRepository implements DocumentRepository {
       .list()
       .filter((document) => !document.isArchived)
       .map(toSummary);
+  }
+
+  async listNavigation(): Promise<DocumentNavigationItem[]> {
+    await new Promise((resolve) => setTimeout(resolve, networkDelayMs));
+
+    const documents = storage.list().filter((document) => !document.isArchived);
+
+    return documents.map((document) => ({
+      id: document.id,
+      title: document.title,
+      icon: document.icon,
+      parentId: document.parentId,
+      breadcrumb: buildBreadcrumb(document.id, documents),
+    }));
   }
 
   async getById(documentId: DocumentId): Promise<Document | null> {
@@ -203,8 +232,9 @@ export class MockDocumentRepository implements DocumentRepository {
     nextDocuments[documentIndex] = {
       ...currentDocument,
       title: nextTitle,
-      icon: nextTitle.slice(0, 2).toUpperCase(),
+      icon: input.icon?.trim() || currentDocument.icon || nextTitle.slice(0, 2).toUpperCase(),
       content: structuredClone(input.content),
+      coverStyle: input.coverStyle ?? currentDocument.coverStyle,
       preview: createPreview(input.content),
       updatedAt: new Date().toISOString(),
     };

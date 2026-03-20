@@ -1,5 +1,6 @@
 "use client";
 
+import { DocumentBreadcrumbs } from "./document-breadcrumbs";
 import { useDocumentDetailQuery } from "../hooks/use-documents";
 
 interface DocumentPageHeaderProps {
@@ -13,6 +14,14 @@ export function DocumentPageHeader({ documentId }: DocumentPageHeaderProps) {
     return <span>Document</span>;
   }
 
-  return <span>{documentQuery.data?.title ?? "Document"}</span>;
-}
+  if (!documentQuery.data) {
+    return <span>Document</span>;
+  }
 
+  return (
+    <div className="space-y-2">
+      <DocumentBreadcrumbs documentId={documentId} />
+      <span>{documentQuery.data.title}</span>
+    </div>
+  );
+}

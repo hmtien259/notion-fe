@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { Home, Plus } from "lucide-react";
+import { Home, Plus, Search } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { useCommandPaletteStore } from "@/shared/components/navigation/command-palette-store";
 import { cn } from "@/shared/lib/utils";
 import { useCreateDocumentMutation, useDocumentTreeQuery } from "../../hooks/use-documents";
+import { DocumentSidebarSkeleton } from "./document-sidebar-skeleton";
 import { DocumentTreeBranch } from "./document-tree-branch";
 
 interface DocumentSidebarProps {
@@ -15,6 +17,7 @@ export function DocumentSidebar({ activeDocumentId }: DocumentSidebarProps) {
   const pathname = usePathname();
   const treeQuery = useDocumentTreeQuery();
   const createDocumentMutation = useCreateDocumentMutation();
+  const openCommandPalette = useCommandPaletteStore((state) => state.open);
 
   return (
     <aside className="surface-card flex h-full min-h-0 flex-col rounded-[28px] border border-[var(--border)] bg-[var(--sidebar)] p-3">
@@ -38,7 +41,17 @@ export function DocumentSidebar({ activeDocumentId }: DocumentSidebarProps) {
         </div>
       </div>
 
-      <nav className="mt-4 min-h-0 flex-1">
+      <nav className="mt-4 min-h-0 flex-1 overflow-y-auto pr-1">
+        <button
+          type="button"
+          onClick={openCommandPalette}
+          className="mb-3 flex w-full items-center gap-3 rounded-2xl border border-[var(--border)] bg-[var(--surface-elevated)] px-3 py-2.5 text-sm text-[var(--muted-foreground)] transition hover:text-[var(--foreground)]"
+        >
+          <Search className="h-4 w-4" />
+          Search pages
+          <span className="ml-auto rounded-full border border-[var(--border)] px-2 py-0.5 text-[11px]">Ctrl K</span>
+        </button>
+
         <Link
           href="/"
           className={cn(
@@ -61,7 +74,12 @@ export function DocumentSidebar({ activeDocumentId }: DocumentSidebarProps) {
           </div>
 
           <div className="mt-2 space-y-1">
-            {treeQuery.isLoading ? <p className="px-3 py-3 text-sm text-[var(--muted-foreground)]">Loading pages...</p> : null}
+            {treeQuery.isLoading ? <DocumentSidebarSkeleton /> : null}
+            {!treeQuery.isLoading && treeQuery.data?.length === 0 ? (
+              <div className="rounded-2xl border border-dashed border-[var(--border)] px-4 py-6 text-center text-sm text-[var(--muted-foreground)]">
+                No pages yet. Create your first document to get started.
+              </div>
+            ) : null}
             {treeQuery.data?.map((node) => (
               <DocumentTreeBranch key={node.id} node={node} depth={0} activeDocumentId={activeDocumentId} />
             ))}
@@ -71,4 +89,3 @@ export function DocumentSidebar({ activeDocumentId }: DocumentSidebarProps) {
     </aside>
   );
 }
-

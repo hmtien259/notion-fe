@@ -15,6 +15,10 @@ class DocumentService {
     return this.repository.list();
   }
 
+  async listDocumentNavigation() {
+    return this.repository.listNavigation();
+  }
+
   async listDocumentTree() {
     const documents = await this.repository.list();
     return buildDocumentTree(documents);

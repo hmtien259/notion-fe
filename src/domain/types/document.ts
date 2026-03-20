@@ -50,4 +50,14 @@ export interface SaveDocumentInput {
   id: DocumentId;
   title: string;
   content: RichTextNode;
+  icon?: string;
+  coverStyle?: string;
+}
+
+export interface DocumentNavigationItem {
+  id: DocumentId;
+  title: string;
+  icon: string;
+  parentId: DocumentId | null;
+  breadcrumb: string[];
 }

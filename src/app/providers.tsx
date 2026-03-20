@@ -3,6 +3,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 import { ThemeProvider } from "next-themes";
+import { ToastViewport } from "@/shared/components/feedback/toast-viewport";
+import { DocumentCommandPalette } from "@/shared/components/navigation/document-command-palette";
 
 export function AppProviders({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -19,7 +21,11 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
 
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        {children}
+        <DocumentCommandPalette />
+        <ToastViewport />
+      </QueryClientProvider>
     </ThemeProvider>
   );
 }
